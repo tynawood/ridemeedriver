@@ -1,0 +1,237 @@
+<!doctype html>
+<!-- <html lang="en"> -->
+<html manifest="cache.manifest">
+<head>
+
+<style type="text/css">
+  
+
+  .header {
+  height: 60px;
+  width: 100%;
+  background-color:#fde401;
+  /*background:url(../img/hapn%27n.png) no-repeat;*/
+  position:fixed;
+
+  /*left:30%;*/
+
+  z-index: 1;
+  
+  /*background-image: -webkit-gradient(linear, left top, left bottom, from(#333), to(#111));
+  background-image: -webkit-linear-gradient(top, #333, #111);
+  background-image:    -moz-linear-gradient(top, #333, #111);
+  background-image:      -o-linear-gradient(top, #333, #111);
+  background-image:         linear-gradient(to bottom, #333, #111);*/
+  /*border-bottom:#F00 1px solid;*/
+  
+}
+</style>
+
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1">
+	<title>Baja</title>
+
+	<!-- <link rel="stylesheet" href="css/idangerous.swiper.css">-->
+	<link rel="stylesheet" href="css/normalize.css">
+	 <!-- <link rel="stylesheet" href="css/movies-app.css">  -->
+<!-- <link rel="stylesheet" href="css/loader.css" media="screen" type="text/css" /> -->
+<!-- <link href='http://fonts.googleapis.com/css?family=Actor' rel='stylesheet' type='text/css'>
+ -->
+
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0;" />
+    
+    
+
+ 
+	<script src="https://code.jquery.com/jquery-2.2.0.js"></script> 
+<script type="text/javascript" src="cordova.js"></script>
+
+<script>
+document.addEventListener("deviceready", init, false);
+function init() {
+  document.addEventListener("online", toggleCon, false);
+  document.addEventListener("offline", toggleCon, false);
+  if(localStorage.lastSearch) {
+    $("#search").val(localStorage.lastSearch)
+  }
+  if(!localStorage.numvisits) {
+    //navigator.notification.alert("Welcome! You are online", function() {}, "Welcome!");
+    localStorage.numvisits = 1;
+  } else {
+    localStorage.numvisits = parseInt(localStorage.numvisits) + 1;
+  }
+  if(navigator.network.connection.type == Connection.NONE) {
+    navigator.notification.alert("Sorry, you are offline.Please check your internet connection", function() {}, "Offline!");
+  } else {
+    setupButtonHandler();
+  }
+}
+function toggleCon(e) {
+  console.log("Called",e.type);
+  if(e.type == "offline") {
+    $("#searchBtn").off("touchstart");
+    navigator.notification.alert("Sorry, you are offline.", function() {}, "Offline!");
+  } else {
+    //navigator.notification.alert("Welcome, you are back online.", function() {}, "Online!");
+    setupButonHandler();
+  }
+}
+function setupButtonHandler() {
+  $("#searchBtn").on("touchstart", function(e) {
+    //get the search term
+    var search = $("#search").val();
+    if(search == "") return;
+    //remember it
+    localStorage.lastSearch = search;
+    //disable button while we search
+    $(this).attr("disabled","disabled");
+    $("#results").html("<i>Doing a search for "+search+"</i>");
+    //ok, hit the API
+    $.get("https://api.github.com/search/repositories", {"q":search}, function(res,code) {
+      if(res.items && res.items.length) {
+        var s = "<h2>Results</h2>";
+        for(var i=0, len=res.items.length; i<len; i++) {
+          var entry = res.items[i];
+          s += "<p>"+entry.name+"<br/>";
+          s += "By: " + entry.owner.login+"<br/>";
+          s += "Updated: " + entry.updated_at+"<br/>";
+          s += entry.description;
+          s += "</p>";
+        }
+        $("#results").html(s);
+      }
+      $("#searchBtn").removeAttr("disabled");
+    });
+  });
+};
+
+
+
+</script>
+
+<script>
+      $(window).load(function(){
+         $('.preloader').fadeOut(50);
+      });
+    </script>
+
+
+    <style>
+
+.preloader {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: white; /* background-color is important, or it will be see-through, and we don't want that! */
+    text-align: center;
+}
+
+.preloader img {
+  margin-top: 
+     display: block;
+    margin: 30px auto;
+}
+</style>
+
+
+<!--<script src="http://code.jquery.com/jquery-1.10.1.min.js">
+</script>
+    <link type="text/css" rel="stylesheet" href="boot.min.css">
+    
+	  <link type="text/css" rel="stylesheet" href="css/style.css" />
+
+
+    <link rel="stylesheet" href="css/modal.css" media="screen" type="text/css" />--/>
+	  <!---<script src="intelxdk.js"></script>
+<script src="xhr.js"></script>-->
+
+
+  <!--   <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script> -->
+    
+</head>
+
+
+
+
+
+<body style="background: #4a3b65;overflow:hidden" >
+
+
+
+<!-- <div id="results">
+</div> -->
+
+<div id="header" class="header" style="display:none;width:0;height:0;"> </div>
+<div class="header" >
+<!-- <a href="settings.html"><div class="menu"></div></a> -->
+
+<a href="index.html"><img class="img_center" src="img/hapn'n.png" alt="1"/></a>
+</div>
+
+
+<input type="text" id="search" placeholder="Enter Search Term" style="display:none;"><br/>
+<button id="searchBtn" style="display: none;">Search</button>
+
+                  
+                                
+         
+<br>
+
+
+<div class='preloader'>
+   <img src='ld.gif' alt='Loading...'/>
+   <p></p>
+
+   <br>
+
+   <p>Loading...</p>
+
+
+</div>
+
+<!-- 
+				<div class='preloader'>
+   <img src='ld.gif' alt='Loading...'/>
+   Loading Hapnin...
+
+   
+</div> -->
+
+<div style="height:600px;">
+<iframe src="https://127.0.0.1/index.php"  width="100%" height="100%"  style="margin-top:10px;border:none;"></iframe>
+
+</div>
+              
+ <!-- <div class="holds-the-iframe" >
+
+ <iframe src="https://kolabo8.com/baja/log.php"  width="120%" height="1300px" style="margin-top:-50px;margin-left:-20px;border:none;">
+ 
+</iframe>
+
+</div> -->
+
+
+
+
+
+			
+
+
+
+	
+	
+<!--<script src="js/jquery.min.js"></script>-->
+	<!-- Don't forget to get the latest Swiper and scrollbar version here-->
+<!-- <script src="js/idangerous.swiper-2.0.min.js"></script>
+<script src="js/movies-app.js"></script>
+
+
+  
+  <script src="js/index.js"></script>
+ -->
+
+</body>
+</html>
