@@ -45,7 +45,7 @@
 
  
 	<script src="https://code.jquery.com/jquery-2.2.0.js"></script> 
-<script type="text/javascript" src="cordova.js"></script>
+<!--<script type="text/javascript" src="cordova.js"></script>
 
 <script>
 document.addEventListener("deviceready", init, false);
@@ -63,8 +63,6 @@ function init() {
   }
   if(navigator.network.connection.type == Connection.NONE) {
     navigator.notification.alert("Sorry, you are offline.Please check your internet connection", function() {}, "Offline!");
-
-    window.location.href="offline.html";
   } else {
     setupButtonHandler();
   }
@@ -74,7 +72,6 @@ function toggleCon(e) {
   if(e.type == "offline") {
     $("#searchBtn").off("touchstart");
     navigator.notification.alert("Sorry, you are offline.", function() {}, "Offline!");
-     window.location.href="offline.html";
   } else {
     //navigator.notification.alert("Welcome, you are back online.", function() {}, "Online!");
     setupButonHandler();
@@ -111,9 +108,9 @@ function setupButtonHandler() {
 
 
 
-</script>
+</script>-->
 
-<script>
+<!--<script>
       $(window).load(function(){
          $('.preloader').fadeOut(50);
       });
@@ -138,7 +135,7 @@ function setupButtonHandler() {
     margin: 30px auto;
 }
 </style>
-
+-->
 
 <!--<script src="http://code.jquery.com/jquery-1.10.1.min.js">
 </script>
@@ -185,7 +182,7 @@ function setupButtonHandler() {
 
 
 <div class='preloader'>
-   <img src='ld.gif' alt='Loading...'/>
+   <!-- <img src='ld.gif' alt='Loading...'/> -->
    <p></p>
 
    <br>
@@ -204,7 +201,7 @@ function setupButtonHandler() {
 </div> -->
 
 <div style="height:600px;">
-<iframe src="http://inappshub.com/ridemee/log.php"  width="100%" height="100%"  style="margin-top:10px;border:none;"></iframe>
+<p> Please youur internet connection is down !!!<br>TRy reconnecting...</p>
 
 </div>
               
